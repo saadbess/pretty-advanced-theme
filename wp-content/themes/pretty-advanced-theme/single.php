@@ -34,9 +34,8 @@
                                     <?php the_post_thumbnail(); ?>
                                 </div>
                             <?php endif; ?>
-                            <?php the_excerpt(); ?> <!-- previously the_content(); -->
+                            <?php the_content(); ?> <!-- set to the_content(); to display the whole post -->
 
-                            <a class="button" href="<?php the_permalink(); ?>">Read More</a>
                         </article>
                     <?php endwhile; ?>
                 <?php else : ?>
