@@ -8,4 +8,11 @@
         ));
     }
 
-    add_action('after_setup_theme', 'adv_theme_support');
+    add_action('after_setup_theme', 'adv_theme_support'); // add_action (adding something)
+
+    // Excerpt Length
+    function adv_set_excerpt_length() {
+        return 30;
+    }
+
+    add_filter('excerpt_length', 'adv_set_excerpt_length'); // add_filter (changing something)

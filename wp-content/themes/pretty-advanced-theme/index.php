@@ -11,7 +11,7 @@
         <header>
             <div class="container">
                 <h1>
-                    <a href="index.html">
+                    <a href="<?php echo home_url('/'); ?>">
                         <?php bloginfo('name'); ?>
                     </a>
                     <small><?php bloginfo('description'); ?></small>
@@ -38,50 +38,39 @@
 
         <div class="container content">
             <div class="main block">
-                <article class="post">
-                    <h2>Blog post 1</h2>
-                    <p class="meta">
-                        Posted at 11:00 on May 9 by admin
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis nibh non lacinia fermentum. Morbi finibus, magna in laoreet congue, velit risus vulputate dui, sed scelerisque dui neque ut velit. Praesent elementum vitae lectus scelerisque ultricies. Sed neque lacus, sodales eu ipsum a, bibendum sollicitudin sem. Donec interdum nisl vitae auctor viverra. Sed lobortis eu augue nec vehicula. Nulla id ipsum malesuada, ultrices neque ut, congue diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed sapien ut tortor molestie suscipit eget quis felis. Nulla egestas a mi sed rutrum. Etiam ac justo nunc. Duis ac libero neque. Proin a mauris pulvinar, luctus risus in, mattis orci. Morbi nec euismod lectus. Sed faucibus risus justo, nec efficitur massa fermentum ac. Vivamus pretium blandit risus, laoreet hendrerit lorem pulvinar viverra.
-                    </p>
-                    <p>
-                        In nec malesuada purus. Nam eget iaculis sem. Duis eget auctor odio. Etiam eget malesuada arcu. Donec velit eros, volutpat a libero vel, luctus elementum diam. Ut tempor erat semper tortor efficitur, at luctus sapien vestibulum. Nam vel tellus nec metus venenatis iaculis in vitae tellus. Nullam et enim a diam tempus scelerisque non quis tortor. Proin et magna a eros dictum molestie vitae sagittis turpis. Aliquam eu rhoncus sapien. Integer sed mauris velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam at est dolor. Pellentesque lectus nunc, rhoncus sed convallis vel, commodo non felis. Duis sit amet odio pharetra, consectetur lacus vitae, laoreet nisl. Aenean accumsan fermentum venenatis.
-                    </p>
+                <?php if(have_posts()) : ?>
+                    <?php while(have_posts()) : the_post(); ?>
+                        <article class="post">
+                            <h2><?php the_title(); ?></h2>
+                            <p class="meta">
+                                Posted at
+                                <?php the_time('F j, Y g: i a'); ?>
+                                by
+                                <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
+                                    <?php the_author(); ?>
+                                </a> |
+                                Posted In
+                                <?php
+                                    $categories = get_the_category();
+                                    $separator = ", ";
+                                    $output = '';
 
-                    <a class="button" href="#">Read More</a>
-                </article>
+                                    if($categories) {
+                                        foreach($categories as $category) {
+                                            $output .= '<a href="'.get_category_link($category->term_id).'">'.$category->cat_name.'</a>'. $seperator;
+                                        }
+                                    }
 
-                <article class="post">
-                    <h2>Blog post 1</h2>
-                    <p class="meta">
-                        Posted at 11:00 on May 9 by admin
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis nibh non lacinia fermentum. Morbi finibus, magna in laoreet congue, velit risus vulputate dui, sed scelerisque dui neque ut velit. Praesent elementum vitae lectus scelerisque ultricies. Sed neque lacus, sodales eu ipsum a, bibendum sollicitudin sem. Donec interdum nisl vitae auctor viverra. Sed lobortis eu augue nec vehicula. Nulla id ipsum malesuada, ultrices neque ut, congue diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed sapien ut tortor molestie suscipit eget quis felis. Nulla egestas a mi sed rutrum. Etiam ac justo nunc. Duis ac libero neque. Proin a mauris pulvinar, luctus risus in, mattis orci. Morbi nec euismod lectus. Sed faucibus risus justo, nec efficitur massa fermentum ac. Vivamus pretium blandit risus, laoreet hendrerit lorem pulvinar viverra.
-                    </p>
-                    <p>
-                        In nec malesuada purus. Nam eget iaculis sem. Duis eget auctor odio. Etiam eget malesuada arcu. Donec velit eros, volutpat a libero vel, luctus elementum diam. Ut tempor erat semper tortor efficitur, at luctus sapien vestibulum. Nam vel tellus nec metus venenatis iaculis in vitae tellus. Nullam et enim a diam tempus scelerisque non quis tortor. Proin et magna a eros dictum molestie vitae sagittis turpis. Aliquam eu rhoncus sapien. Integer sed mauris velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam at est dolor. Pellentesque lectus nunc, rhoncus sed convallis vel, commodo non felis. Duis sit amet odio pharetra, consectetur lacus vitae, laoreet nisl. Aenean accumsan fermentum venenatis.
-                    </p>
-
-                    <a class="button" href="#">Read More</a>
-                </article>
-
-                <article class="post">
-                    <h2>Blog post 1</h2>
-                    <p class="meta">
-                        Posted at 11:00 on May 9 by admin
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis nibh non lacinia fermentum. Morbi finibus, magna in laoreet congue, velit risus vulputate dui, sed scelerisque dui neque ut velit. Praesent elementum vitae lectus scelerisque ultricies. Sed neque lacus, sodales eu ipsum a, bibendum sollicitudin sem. Donec interdum nisl vitae auctor viverra. Sed lobortis eu augue nec vehicula. Nulla id ipsum malesuada, ultrices neque ut, congue diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed sapien ut tortor molestie suscipit eget quis felis. Nulla egestas a mi sed rutrum. Etiam ac justo nunc. Duis ac libero neque. Proin a mauris pulvinar, luctus risus in, mattis orci. Morbi nec euismod lectus. Sed faucibus risus justo, nec efficitur massa fermentum ac. Vivamus pretium blandit risus, laoreet hendrerit lorem pulvinar viverra.
-                    </p>
-                    <p>
-                        In nec malesuada purus. Nam eget iaculis sem. Duis eget auctor odio. Etiam eget malesuada arcu. Donec velit eros, volutpat a libero vel, luctus elementum diam. Ut tempor erat semper tortor efficitur, at luctus sapien vestibulum. Nam vel tellus nec metus venenatis iaculis in vitae tellus. Nullam et enim a diam tempus scelerisque non quis tortor. Proin et magna a eros dictum molestie vitae sagittis turpis. Aliquam eu rhoncus sapien. Integer sed mauris velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam at est dolor. Pellentesque lectus nunc, rhoncus sed convallis vel, commodo non felis. Duis sit amet odio pharetra, consectetur lacus vitae, laoreet nisl. Aenean accumsan fermentum venenatis.
-                    </p>
-
-                    <a class="button" href="#">Read More</a>
-                </article>
+                                    echo trim($output, $seperator);
+                                ?>
+                            </p>
+                            <?php the_excerpt(); ?> <!-- previously the_content(); -->
+                            <a class="button" href="<?php the_permalink(); ?>">Read More</a>
+                        </article>
+                    <?php endwhile; ?>
+                <?php else : ?>
+                    <?php echo apautop('Sorry, no posts were found'); ?>
+                <?php endif; ?>
             </div>
 
             <div class="side">

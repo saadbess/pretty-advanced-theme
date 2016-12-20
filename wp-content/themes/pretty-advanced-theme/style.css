@@ -139,11 +139,16 @@ article.post .meta {
     padding: 7px;
 }
 
+article.post .meta a {
+    color: #fff;
+}
+
 .button {
     background: #009acd;
     color: #fff;
     padding: 10px 15px;
     display: inline-block;
+    cursor: pointer;
 }
 
 footer.main-footer {
